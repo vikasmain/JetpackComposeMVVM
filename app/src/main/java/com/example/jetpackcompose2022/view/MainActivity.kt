@@ -10,15 +10,13 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.jetpackcompose2022.deps.DaggerAppComponent
+import com.example.jetpackcompose2022.deps.DaggerMovieComponent
 import com.example.jetpackcompose2022.ui.theme.Jetpackcompose2022Theme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val component = (DaggerAppComponent.builder().build()).providesSubComponent()
-            .build()
-        component.inject(this@MainActivity)
+        val component = DaggerMovieComponent.builder().build()
         setContent {
             Jetpackcompose2022Theme {
                 // A surface container using the 'background' color from the theme
@@ -26,7 +24,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    Greeting("Android")
+                    Greeting("Jetpack Compose")
                 }
             }
         }
@@ -42,6 +40,6 @@ fun Greeting(name: String) {
 @Composable
 fun DefaultPreview() {
     Jetpackcompose2022Theme {
-        Greeting("Android")
+        Greeting("Official")
     }
 }

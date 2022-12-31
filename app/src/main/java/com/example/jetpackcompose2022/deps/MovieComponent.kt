@@ -1,40 +1,51 @@
 package com.example.jetpackcompose2022.deps
 
-import com.example.jetpackcompose2022.view.MainActivity
+import com.squareup.moshi.Moshi
+import dagger.Component
 import dagger.Module
 import dagger.Provides
-import dagger.Subcomponent
-import kotlinx.coroutines.CoroutineName
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.plus
-import javax.inject.Scope
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Retrofit
+import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Singleton
 
-@Subcomponent(modules = [MovieModule::class])
+const val BASE_URL = ""
+
+@Component(modules = [AppModule::class])
 @Singleton
-interface MovieComponent : AppComponent {
-
-    fun inject(mainActivity: MainActivity)
-
-    @Subcomponent.Builder
+interface MovieComponent {
+    @Component.Builder
     interface Builder {
         fun build(): MovieComponent
     }
 }
 
 @Module
-class MovieModule {
+class AppModule {
+
     companion object {
 
         @Provides
-        @MovieActivityScope
-        fun providesCoroutineScope(): CoroutineScope {
-            return MainScope() + CoroutineName("Movie")
+        @Singleton
+        fun providesOkhttpClient(): OkHttpClient {
+            val httpLoggingInterceptor =
+                HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+            return OkHttpClient.Builder().addInterceptor(httpLoggingInterceptor).build()
+        }
+
+        @Provides
+        @Singleton
+        fun providesMoshi(): Moshi {
+            return Moshi.Builder().build()
+        }
+
+        @Provides
+        @Singleton
+        fun providesRetrofitClient(okHttpClient: OkHttpClient, moshi: Moshi): Retrofit {
+            return Retrofit.Builder().client(okHttpClient)
+                .addConverterFactory(MoshiConverterFactory.create(moshi))
+                .baseUrl(BASE_URL).build()
         }
     }
 }
-
-@Scope
-@Retention(AnnotationRetention.SOURCE)
-internal annotation class MovieActivityScope

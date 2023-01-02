@@ -6,11 +6,10 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import com.example.jetpackcompose2022.deps.DaggerMovieComponent
+import com.example.jetpackcompose2022.model.MovieData
+import com.example.jetpackcompose2022.ui.movielist.MovieList
 import com.example.jetpackcompose2022.ui.theme.Jetpackcompose2022Theme
 
 class MainActivity : ComponentActivity() {
@@ -24,22 +23,10 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    Greeting("Jetpack Compose")
+                    MovieList(movieData = mutableListOf(MovieData("First"), MovieData("Second")))
                 }
             }
         }
     }
 }
 
-@Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    Jetpackcompose2022Theme {
-        Greeting("Official")
-    }
-}

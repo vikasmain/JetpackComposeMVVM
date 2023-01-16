@@ -15,21 +15,21 @@ class MovieViewModel @Inject constructor(
 
     fun fetchList() {
         movieRepository.getMovieList()
+            .onStart {
+                screenStateFlow.value = MovieScreenState.Loading
+            }
             .onEach {
-
+                screenStateFlow.value = MovieScreenState.Success(it)
             }
             .catch {
-
-            }
-            .onStart {
-
+                screenStateFlow.value = MovieScreenState.Error(it)
             }
             .launchIn(coroutineScope)
     }
 }
 
 sealed class MovieScreenState {
-    data class Success(val movieData: List<MovieData>) : MovieScreenState()
+    data class Success(val movieData: MovieData) : MovieScreenState()
     object Loading : MovieScreenState()
     data class Error(val error: Throwable) : MovieScreenState()
 }

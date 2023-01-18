@@ -46,6 +46,10 @@ fun movieScreen(viewModel: MovieViewModel, scope: CoroutineScope) {
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colors.background
     ) {
+        //you cannot use stateflow observing here using coroutine scope because then you can't
+        //call compose methods from inside it, because then it will be a coroutine context instead
+        //of compose context.
+
         val state = viewModel.screenStateFlow.collectAsState().value
         when (state) {
             is MovieScreenState.Success -> {

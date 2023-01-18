@@ -13,9 +13,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.jetpackcompose2022.model.MovieData
+import com.example.jetpackcompose2022.model.MovieData.MovieList
 
 @Composable
-fun MovieItem(movieData: MovieData) {
+fun MovieItem(movieData: MovieList) {
     Card(
         shape = RoundedCornerShape(8.dp),
         modifier = Modifier

@@ -8,7 +8,7 @@ import androidx.compose.ui.Modifier
 import com.example.jetpackcompose2022.model.MovieData
 
 @Composable
-fun MovieList(movieData: List<MovieData>) {
+fun MovieList(movieData: List<MovieData.MovieList>) {
         LazyColumn(modifier = Modifier.fillMaxSize()) {
             items(movieData) { data ->
                 MovieItem(data)

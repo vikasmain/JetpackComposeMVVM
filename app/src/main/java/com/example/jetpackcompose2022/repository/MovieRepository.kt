@@ -6,6 +6,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class MovieRepository @Inject constructor(
@@ -13,6 +14,8 @@ class MovieRepository @Inject constructor(
 ) {
 
     fun getMovieList(): Flow<MovieData> {
-        return movieApi.getMovieList().asFlow().flowOn(Dispatchers.IO)
+        return flow {
+            emit(movieApi.getMovieList())
+        }.flowOn(Dispatchers.IO)
     }
 }

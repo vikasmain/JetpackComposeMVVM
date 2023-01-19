@@ -10,7 +10,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Singleton
 
-const val BASE_URL = ""
+const val BASE_URL = "https://run.mocky.io/v3/"
 
 @Component(modules = [AppModule::class])
 @Singleton

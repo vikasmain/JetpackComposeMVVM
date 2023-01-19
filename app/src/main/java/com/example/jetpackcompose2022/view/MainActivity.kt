@@ -39,7 +39,6 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-
 @Composable
 fun movieScreen(viewModel: MovieViewModel, scope: CoroutineScope) {
     Surface(

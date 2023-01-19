@@ -5,10 +5,10 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import androidx.compose.foundation.lazy.items
 import androidx.compose.ui.Modifier
-import com.example.jetpackcompose2022.model.MovieData
+import com.example.jetpackcompose2022.model.MovieResponse
 
 @Composable
-fun MovieList(movieData: List<MovieData.MovieList>) {
+fun MovieList(movieData: List<MovieResponse.MovieSections>) {
         LazyColumn(modifier = Modifier.fillMaxSize()) {
             items(movieData) { data ->
                 MovieItem(data)

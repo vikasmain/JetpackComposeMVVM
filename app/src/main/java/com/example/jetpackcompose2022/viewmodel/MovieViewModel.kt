@@ -1,6 +1,7 @@
 package com.example.jetpackcompose2022.viewmodel
 
-import com.example.jetpackcompose2022.model.MovieData
+import androidx.lifecycle.ViewModel
+import com.example.jetpackcompose2022.model.MovieResponse
 import com.example.jetpackcompose2022.repository.MovieRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.*
@@ -9,7 +10,7 @@ import javax.inject.Inject
 class MovieViewModel @Inject constructor(
     private val movieRepository: MovieRepository,
     private val coroutineScope: CoroutineScope
-) {
+): ViewModel() {
 
     internal val screenStateFlow = MutableStateFlow<MovieScreenState>(MovieScreenState.Loading)
 
@@ -29,7 +30,7 @@ class MovieViewModel @Inject constructor(
 }
 
 sealed class MovieScreenState {
-    data class Success(val movieData: MovieData) : MovieScreenState()
+    data class Success(val movieData: MovieResponse) : MovieScreenState()
     object Loading : MovieScreenState()
     data class Error(val error: Throwable) : MovieScreenState()
 }

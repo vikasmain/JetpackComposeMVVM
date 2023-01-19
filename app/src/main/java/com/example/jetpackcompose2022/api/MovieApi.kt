@@ -1,10 +1,10 @@
 package com.example.jetpackcompose2022.api
 
-import com.example.jetpackcompose2022.model.MovieData
+import com.example.jetpackcompose2022.model.MovieResponse
 import retrofit2.http.GET
 
 interface MovieApi {
 
-    @GET("e0aa53d5-4cb4-4970-aa81-c5581599c3a4")
-    suspend fun getMovieList(): MovieData
+    @GET("ef5b9431-5da5-42d9-aaba-9d975e9bf4cd")
+    suspend fun getMovieList(): MovieResponse
 }

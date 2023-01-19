@@ -9,8 +9,8 @@ import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import androidx.activity.viewModels
 import com.example.jetpackcompose2022.deps.DaggerMovieComponent
-import com.example.jetpackcompose2022.model.MovieData
 import com.example.jetpackcompose2022.ui.movielist.MovieList
 import com.example.jetpackcompose2022.ui.theme.Jetpackcompose2022Theme
 import com.example.jetpackcompose2022.viewmodel.MovieScreenState
@@ -19,8 +19,6 @@ import kotlinx.coroutines.CoroutineScope
 import javax.inject.Inject
 
 class MainActivity : ComponentActivity() {
-    @Inject
-    lateinit var viewModel: MovieViewModel
 
     @Inject
     lateinit var scope: CoroutineScope
@@ -28,6 +26,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val component = DaggerMovieComponent.builder().build()
+        val viewModel by viewModels<MovieViewModel>()
         viewModel.fetchList()
 
         setContent {
@@ -52,7 +51,7 @@ fun movieScreen(viewModel: MovieViewModel, scope: CoroutineScope) {
         val state = viewModel.screenStateFlow.collectAsState().value
         when (state) {
             is MovieScreenState.Success -> {
-                MovieList(movieData = state.movieData.movieList)
+                MovieList(movieData = state.movieData.movieData.sections)
             }
             MovieScreenState.Loading -> {
 

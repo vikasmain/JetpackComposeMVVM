@@ -59,10 +59,8 @@ fun movieScreen(viewModel: MovieViewModel, activity: MainActivity) {
         //of compose context.
 
         val state = viewModel.screenStateFlow.collectAsState().value
-        Log.d("RideActivity", "dar " + state)
         when (state) {
             is MovieScreenState.Success -> {
-                Toast.makeText(activity, "" + state.movieData, Toast.LENGTH_LONG).show()
                 state.movieData.movieData?.sections?.let {
                     MovieList(movieData = state.movieData.movieData?.sections)
                 }

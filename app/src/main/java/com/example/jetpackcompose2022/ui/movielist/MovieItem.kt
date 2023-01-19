@@ -15,7 +15,7 @@ import androidx.compose.ui.unit.sp
 import com.example.jetpackcompose2022.model.MovieResponse
 
 @Composable
-fun MovieItem(movieData: MovieResponse.MovieSections) {
+fun MovieItem(movieData: MovieResponse.MovieSections.Movie) {
     Card(
         shape = RoundedCornerShape(8.dp),
         modifier = Modifier
@@ -30,7 +30,7 @@ fun MovieItem(movieData: MovieResponse.MovieSections) {
                 fontSize = 16.sp,
             )
             Text(
-                text = movieData.title,
+                text = movieData.description,
                 Modifier.padding(start = 8.dp, top = 4.dp, bottom = 4.dp),
                 fontSize = 16.sp,
             )

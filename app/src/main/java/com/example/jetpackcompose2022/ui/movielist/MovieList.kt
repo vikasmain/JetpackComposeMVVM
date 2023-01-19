@@ -10,7 +10,7 @@ import com.example.jetpackcompose2022.model.MovieResponse
 @Composable
 fun MovieList(movieData: List<MovieResponse.MovieSections>) {
         LazyColumn(modifier = Modifier.fillMaxSize()) {
-            items(movieData) { data ->
+            items(movieData[0].movies) { data ->
                 MovieItem(data)
             }
         }

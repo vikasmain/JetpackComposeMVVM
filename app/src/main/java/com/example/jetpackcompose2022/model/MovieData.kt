@@ -15,10 +15,21 @@ data class MovieResponse(
         @SerializedName("title")
         val title: String,
 
-        @SerializedName("description")
-        val description: String,
+        @SerializedName("index")
+        val index: String,
 
-        @SerializedName("image")
-        val image: String
-    )
+        @SerializedName("movie")
+        val movies: List<Movie>
+    ) {
+        data class Movie(
+            @SerializedName("title")
+            val title: String,
+
+            @SerializedName("description")
+            val description: String,
+
+            @SerializedName("image")
+            val image: String
+        )
+    }
 }

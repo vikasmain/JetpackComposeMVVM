@@ -1,9 +1,7 @@
 package com.example.jetpackcompose2022.deps
 
 import com.example.jetpackcompose2022.api.MovieApi
-import com.example.jetpackcompose2022.repository.MovieRepository
 import com.example.jetpackcompose2022.view.MainActivity
-import com.squareup.moshi.Moshi
 import dagger.Component
 import dagger.Module
 import dagger.Provides
@@ -14,7 +12,7 @@ import kotlinx.coroutines.plus
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
+import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
 const val BASE_URL = "https://run.mocky.io/v3/"
@@ -46,15 +44,9 @@ class AppModule {
 
         @Provides
         @Singleton
-        fun providesMoshi(): Moshi {
-            return Moshi.Builder().build()
-        }
-
-        @Provides
-        @Singleton
-        fun providesRetrofitClient(okHttpClient: OkHttpClient, moshi: Moshi): Retrofit {
+        fun providesRetrofitClient(okHttpClient: OkHttpClient): Retrofit {
             return Retrofit.Builder().client(okHttpClient)
-                .addConverterFactory(MoshiConverterFactory.create(moshi))
+                .addConverterFactory(GsonConverterFactory.create())
                 .baseUrl(BASE_URL).build()
         }
 

@@ -1,29 +1,24 @@
 package com.example.jetpackcompose2022.model
 
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
+import com.google.gson.annotations.SerializedName
 
-@JsonClass(generateAdapter = true) // if you don't add this then moshi will not use kotlin codegen support for deserialize/serialize it will use reflection for this
 data class MovieResponse(
-
-    @Json(name = "success")
-    val success: Boolean,
-    @Json(name = "data")
-    val movieData: MovieData
+    @SerializedName("data")
+    val movieData: MovieData?
 ) {
     data class MovieData(
-        @Json(name = "sections")
+        @SerializedName("sections")
         val sections: List<MovieSections>
     )
 
     data class MovieSections(
-        @Json(name = "title")
+        @SerializedName("title")
         val title: String,
 
-        @Json(name = "description")
+        @SerializedName("description")
         val description: String,
 
-        @Json(name = "image")
+        @SerializedName("image")
         val image: String
     )
 }

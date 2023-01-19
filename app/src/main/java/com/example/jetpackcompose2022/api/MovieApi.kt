@@ -5,6 +5,6 @@ import retrofit2.http.GET
 
 interface MovieApi {
 
-    @GET("ef5b9431-5da5-42d9-aaba-9d975e9bf4cd")
+    @GET("7095430e-535a-4522-bbd3-8c1180dcf2df")
     suspend fun getMovieList(): MovieResponse
 }

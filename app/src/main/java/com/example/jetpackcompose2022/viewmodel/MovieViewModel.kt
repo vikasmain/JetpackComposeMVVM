@@ -1,5 +1,6 @@
 package com.example.jetpackcompose2022.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.example.jetpackcompose2022.model.MovieResponse
 import com.example.jetpackcompose2022.repository.MovieRepository
@@ -23,6 +24,7 @@ class MovieViewModel @Inject constructor(
                 screenStateFlow.value = MovieScreenState.Success(it)
             }
             .catch {
+                Log.ERROR
                 screenStateFlow.value = MovieScreenState.Error(it)
             }
             .launchIn(coroutineScope)

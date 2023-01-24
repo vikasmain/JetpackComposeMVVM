@@ -18,6 +18,9 @@ data class MovieResponse(
         @SerializedName("index")
         val index: String,
 
+        @SerializedName("no_of_movies")
+        val noOfMovies: Int,
+
         @SerializedName("movie")
         val movies: List<Movie>
     ) {

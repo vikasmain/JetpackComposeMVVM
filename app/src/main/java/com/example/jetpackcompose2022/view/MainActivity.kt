@@ -1,8 +1,6 @@
 package com.example.jetpackcompose2022.view
 
 import android.os.Bundle
-import android.util.Log
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
@@ -61,9 +59,7 @@ fun movieScreen(viewModel: MovieViewModel, activity: MainActivity) {
         val state = viewModel.screenStateFlow.collectAsState().value
         when (state) {
             is MovieScreenState.Success -> {
-                state.movieData.movieData?.sections?.let {
-                    MovieList(movieData = state.movieData.movieData?.sections)
-                }
+                MovieList(movieSectionData = state.movieSectionData)
             }
             MovieScreenState.Loading -> {
 

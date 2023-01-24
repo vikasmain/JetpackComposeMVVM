@@ -35,9 +35,19 @@ class MovieViewModel @Inject constructor(
         val movieSectionData = mutableListOf<MovieSectionData>()
         movieResponse.movieData?.sections?.forEach {
             movieSectionData.add(MovieSectionData.MovieHeader(it.title, it.noOfMovies))
-            movieSectionData.addAll(listOf(MovieSectionData.MovieListContent(it.movies)))
+            movieSectionData.addAll(mapMovieItem(it.movies))
         }
         return movieSectionData
+    }
+
+    fun mapMovieItem(movie: List<MovieResponse.MovieSections.Movie>): List<MovieSectionData.MovieListContent> {
+        return movie.map {
+            MovieSectionData.MovieListContent(
+                title = it.title,
+                description = it.description,
+                image = it.image
+            )
+        }
     }
 }
 

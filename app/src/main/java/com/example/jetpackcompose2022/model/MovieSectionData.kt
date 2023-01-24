@@ -8,6 +8,8 @@ sealed class MovieSectionData {
     ) : MovieSectionData()
 
     data class MovieListContent(
-        val movies: List<MovieResponse.MovieSections.Movie>
+        val title: String,
+        val description: String,
+        val image: String
     ) : MovieSectionData()
 }

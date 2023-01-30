@@ -25,7 +25,6 @@ class MovieViewModel @Inject constructor(
                 screenStateFlow.value = MovieScreenState.Success(mapMovieData(it))
             }
             .catch {
-                Log.ERROR
                 screenStateFlow.value = MovieScreenState.Error(it)
             }
             .launchIn(coroutineScope)

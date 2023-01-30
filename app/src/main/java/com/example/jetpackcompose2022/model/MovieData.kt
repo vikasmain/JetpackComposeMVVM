@@ -16,7 +16,7 @@ data class MovieResponse(
         val title: String,
 
         @SerializedName("index")
-        val index: String,
+        val index: Int,
 
         @SerializedName("no_of_movies")
         val noOfMovies: Int,

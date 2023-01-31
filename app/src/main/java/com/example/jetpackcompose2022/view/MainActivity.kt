@@ -39,7 +39,6 @@ class MainActivity : ComponentActivity() {
                     MovieViewModelFactory(movieRepository = movieApiRepository, scope)
                 }
                 viewModel.fetchList()
-                // A surface container using the 'background' color from the theme
                 movieScreen(viewModel = viewModel, this)
             }
         }

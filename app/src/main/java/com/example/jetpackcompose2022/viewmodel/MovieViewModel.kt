@@ -1,33 +1,33 @@
 package com.example.jetpackcompose2022.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.jetpackcompose2022.model.MovieResponse
 import com.example.jetpackcompose2022.model.MovieSectionData
 import com.example.jetpackcompose2022.repository.MovieRepository
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.*
-import javax.inject.Inject
+import kotlinx.coroutines.launch
 
-class MovieViewModel @Inject constructor(
+class MovieViewModel(
     private val movieRepository: MovieRepository,
-    private val coroutineScope: CoroutineScope
+    private val dispatcherProvider: DispatcherProvider
 ) : ViewModel() {
 
     internal val screenStateFlow = MutableStateFlow<MovieScreenState>(MovieScreenState.Loading)
 
     fun fetchList() {
-        movieRepository.getMovieList()
-            .onStart {
-                screenStateFlow.value = MovieScreenState.Loading
-            }
-            .onEach {
-                screenStateFlow.value = MovieScreenState.Success(mapMovieData(it))
-            }
-            .catch {
-                screenStateFlow.value = MovieScreenState.Error(it)
-            }
-            .launchIn(coroutineScope)
+        viewModelScope.launch(dispatcherProvider.main) {
+            movieRepository.getMovieList()
+                .onStart {
+                    screenStateFlow.value = MovieScreenState.Loading
+                }
+                .onEach {
+                    screenStateFlow.value = MovieScreenState.Success(mapMovieData(it))
+                }
+                .catch {
+                    screenStateFlow.value = MovieScreenState.Error(it)
+                }
+        }
     }
 
     private fun mapMovieData(movieResponse: MovieResponse): List<MovieSectionData> {

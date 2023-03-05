@@ -14,6 +14,7 @@ import com.example.jetpackcompose2022.deps.DaggerMovieComponent
 import com.example.jetpackcompose2022.repository.MovieRepository
 import com.example.jetpackcompose2022.ui.movielist.MovieList
 import com.example.jetpackcompose2022.ui.theme.Jetpackcompose2022Theme
+import com.example.jetpackcompose2022.viewmodel.DefaultCoroutineDispatchersProvider
 import com.example.jetpackcompose2022.viewmodel.MovieScreenState
 import com.example.jetpackcompose2022.viewmodel.MovieViewModel
 import com.example.jetpackcompose2022.viewmodel.MovieViewModelFactory
@@ -36,17 +37,20 @@ class MainActivity : ComponentActivity() {
         setContent {
             Jetpackcompose2022Theme {
                 val viewModel: MovieViewModel by viewModels {
-                    MovieViewModelFactory(movieRepository = movieApiRepository, scope)
+                    MovieViewModelFactory(
+                        movieRepository = movieApiRepository,
+                        dispatcherProvider = DefaultCoroutineDispatchersProvider()
+                    )
                 }
                 viewModel.fetchList()
-                movieScreen(viewModel = viewModel, this)
+                movieScreen(viewModel = viewModel)
             }
         }
     }
 }
 
 @Composable
-fun movieScreen(viewModel: MovieViewModel, activity: MainActivity) {
+fun movieScreen(viewModel: MovieViewModel) {
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colors.background
@@ -55,8 +59,7 @@ fun movieScreen(viewModel: MovieViewModel, activity: MainActivity) {
         //call compose methods from inside it, because then it will be a coroutine context instead
         //of compose context.
 
-        val state = viewModel.screenStateFlow.collectAsState().value
-        when (state) {
+        when (val state = viewModel.screenStateFlow.collectAsState().value) {
             is MovieScreenState.Success -> {
                 MovieList(movieSectionData = state.movieSectionData)
             }
